@@ -1,16 +1,17 @@
 class Slider {
 
-    constructor (src, options) {    
-        Object.assign(this, options);
+    constructor (src, options = {}) {    
+       
+        /* source */ 
         this.quotes = document.querySelectorAll(src);
+        
+        /* default options */  
+        this.slide = options.slide || 0;
+        this.changeType = options.changeType || 'counter';
+        this.animation = options.animation || 'from-left'
+        this.duration = options.duration || 1
+        this.amt = options.amt || 'ease-in-out';
       }
-    
-    /* default options */
-        slide = 0;       
-        changeType = 'counter';       
-        animation = 'from-left-bounce';
-        duration = 3;
-        amt = 'ease-in-out';
 
     /* set time interval for display slide */
     interval() {
