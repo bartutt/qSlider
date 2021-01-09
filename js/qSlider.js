@@ -4,6 +4,10 @@ class Slider {
        
         /* source */ 
         this.quotes = document.querySelectorAll(src);
+
+        /* slide controllers */ 
+        this.leftArr = document.querySelector(".left");
+        this.rightArr = document.querySelector(".right");
         
         /* default options */  
         this.slide = options.slide || 0;
@@ -13,11 +17,40 @@ class Slider {
         this.amt = options.amt || 'ease-in-out';
       }
 
-    /* set time interval for display slide */
-    interval() {
-        setInterval( () => {
 
-            this.counter();
+    setRightController() {
+        this.rightArr.addEventListener("click", () => {
+            
+            if (this.slide < this.quotes.length - 1) {
+                this.slide++;
+                this.show(this.slide);
+                this.setTimer();
+            }
+            
+        });
+
+    }  
+
+    setLeftController() {
+        this.leftArr.addEventListener("click", () => {
+           
+            if (this.slide > 0) {
+                this.slide--;
+                this.show(this.slide);
+                this.setTimer();
+            }
+                   
+            
+        });
+    }  
+
+    /* set slide timer */
+    setTimer() {
+        
+        clearInterval(this.timer);
+
+        this.timer = setInterval( () => {         
+            this.setCounter();
             this.show(this.slide);
             
         }, `${this.duration}000`)
@@ -26,14 +59,14 @@ class Slider {
     /* 
     * 
     */
-    randomSlide(min, max) {
+    setRandomSlide(min, max) {
         return Math.floor(Math.random() * (max-min+1) + min);
     }
 
     /* 
     * 
     */
-    counter() {
+    setCounter() {
         if (this.slide === this.quotes.length - 1)
             return this.slide = 0;
         else 
@@ -42,7 +75,7 @@ class Slider {
     }
 
     /* 
-    * show slide gived in parameter
+    * show slide given in parameter
     * @param nr
     */
     show(nr) {
@@ -65,8 +98,15 @@ class Slider {
     */
     init() {
 
+        /* init first slide */
         this.show(this.slide);
-        this.interval();
+
+        /* init timer */
+        this.setTimer();
+
+        /* init slide controllers */
+        this.setRightController();
+        this.setLeftController();
        
     }
        

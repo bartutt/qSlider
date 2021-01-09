@@ -11,12 +11,39 @@
     position: relative;
 }
 
+.arrow{
+    color: rgb(136, 136, 136);
+    font-size: 3rem;
+    position:absolute;
+    top:50%;
+    cursor: pointer;
+    transform: translate(0,-50%);
+    transition: all 1s ease;
+}
+
+.arrow.left:hover{
+    color:#000;
+    transform: translate(-10%,-50%);
+    transition: all 1s ease;
+}
+.arrow.right:hover{
+    color:#000;
+    transform: translate(10%,-50%);
+    transition: all 1s ease;
+}
+
+.left{
+    left:0;
+}
+.right{
+    right:0;
+}
+
 .quotes-slider::before{
     content: "\201C";
     font-family: Georgia, serif;
     font-size: 10rem;
     font-weight: bold;
-    color: var(--dark-grey);
     position: absolute;
     left:10%;
     top:0;
