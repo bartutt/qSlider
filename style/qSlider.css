@@ -5,9 +5,24 @@
 }
 /* quotes container */
 .quotes-slider{
+    padding:3rem 1rem;
     text-align: center;
     overflow: hidden;
+    position: relative;
 }
+
+.quotes-slider::before{
+    content: "\201C";
+    font-family: Georgia, serif;
+    font-size: 10rem;
+    font-weight: bold;
+    color: var(--dark-grey);
+    position: absolute;
+    left:10%;
+    top:0;
+    opacity:0.1;
+    }
+
 
 .cite{
     display:none;  

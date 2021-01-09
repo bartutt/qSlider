@@ -1,11 +1,29 @@
+/* custom styles */
+@font-face {
+    font-family: quote;
+    src: url(../fonts/raleway/Raleway-ThinItalic.ttf);
+  }
+@font-face {
+    font-family: ref;
+    src: url(../fonts/raleway/Raleway-Light.ttf);
+}
+
+body{
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(163, 163, 163, 0.233) 100%);
+}
+
 q.dark{
     color:rgb(68, 68, 68);
-    font: italic 3rem Arial, sans-serif;
+    font: italic 3rem quote,'Helvetica','Arial',sans-serif;
+}
+
+q.dark::before{
+    content: "";
 }
 
 p.ref{
-    font-size:1rem;
-    font-family: 'Open sans','Helvetica','Arial',sans-serif!important;
+    font: 1rem ref,'Helvetica','Arial',sans-serif;
 }
 
 p.ref::before{
