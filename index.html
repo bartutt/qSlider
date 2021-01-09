@@ -7,27 +7,47 @@
 <link rel="stylesheet" href="style/animations.css">
 <link rel="stylesheet" href="style/qSlider.css">
 
-<div class = "quotes-slider">
-<div class = "cite">      
-    <q class = "dark">1 comment</q>        
-    <p class = "ref">John</p>   
+<div id = "slider-1" class = "quotes-slider">
+  <div class = "cite">      
+    <q class = "dark">Change the world by being yourself.</q>        
+    <p class = "ref">Amy Poehler</p>   
   </div>
 
   <div class = "cite">      
-    <q class = "dark">2 comment</q>        
-    <p class = "ref">Mark</p>   
+    <q class = "dark">Every moment is a fresh beginning.</q>        
+    <p class = "ref">T.S Eliot</p>   
   </div>
 
   <div class = "cite">      
-    <q class = "dark">3 comment</q>        
-    <p class = "ref">Jack</p>
+    <q class = "dark">Never regret anything that made you smile.</q>        
+    <p class = "ref">Mark Twain</p>
   </div>
-
 </div>
+
+<div id = "slider-2" class = "quotes-slider">
+  <div class = "cite">      
+    <q class = "dark">Change the world by being yourself.</q>        
+    <p class = "ref">Amy Poehler</p>   
+  </div>
+
+  <div class = "cite">      
+    <q class = "dark">Every moment is a fresh beginning.</q>        
+    <p class = "ref">T.S Eliot</p>   
+  </div>
+
+  <div class = "cite">      
+    <q class = "dark">Never regret anything that made you smile.</q>        
+    <p class = "ref">Mark Twain</p>
+  </div>
+</div>
+
+
    <script src = "js/qSlider.js"></script>
    <script>
-        const slider = new Slider(".cite", {amt: 'ease-in'});
-        slider.init();
+        const slider_1 = new Slider("#slider-1 .cite", {duration: 6, animation: 'fade-zoom-in'});
+        const slider_2 = new Slider("#slider-2 .cite", {duration: 6, animation: 'from-left-bounce'});
+        slider_1.init();
+        slider_2.init();
    </script>
    
 </body>
