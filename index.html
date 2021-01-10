@@ -15,8 +15,8 @@
   </div>
 
   <div class = "cite">      
-    <q class = "dark">Every moment is a fresh beginning.</q>        
-    <p class = "ref">T.S Eliot</p>   
+    <q class = "dark">Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.</q>        
+    <p class = "ref">Albert Einstein</p>   
   </div>
 
   <div class = "cite">      
@@ -47,8 +47,8 @@
 
    <script src = "js/qSlider.js"></script>
    <script>
-        const slider_1 = new Slider("#slider-1 .cite", {duration: 6, animation: 'fade-zoom-in'});
-        const slider_2 = new Slider("#slider-2 .cite", {duration: 6, animation: 'from-left-bounce'});
+        const slider_1 = new Slider("#slider-1", {controllers: true, duration: 6, animation: 'fade-zoom-in'});
+        const slider_2 = new Slider("#slider-2", {controllers: false, duration: 6, animation: 'from-left-bounce'});
         slider_1.init();
         slider_2.init();
    </script>

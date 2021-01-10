@@ -2,9 +2,11 @@
 :root{
     --duration: 0;
     --amt: 0;
+    --height:0;
 }
 /* quotes container */
 .quotes-slider{
+    height:var(--height);
     padding:3rem 1rem;
     text-align: center;
     overflow: hidden;
@@ -12,6 +14,10 @@
 }
 
 .arrow{
+    animation-name: show-arrow;
+    animation-duration: 2s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
     color: rgb(136, 136, 136);
     font-size: 3rem;
     position:absolute;
@@ -19,7 +25,9 @@
     cursor: pointer;
     transform: translate(0,-50%);
     transition: all 1s ease;
+    z-index:2;
 }
+
 
 .arrow.left:hover{
     color:#000;
@@ -39,6 +47,20 @@
     right:0;
 }
 
+.bullets{
+    display:block;
+    text-align: center;
+}
+
+.bullet{
+    display:block;
+    color:black;
+    height:1px;
+    width:1px;
+}
+
+
+
 .quotes-slider::before{
     content: "\201C";
     font-family: Georgia, serif;
@@ -48,14 +70,23 @@
     left:10%;
     top:0;
     opacity:0.1;
-    }
+}
 
 
 .cite{
-    display:none;  
+    display:block;  
 }
 
 /* animations classes */
+.hide-arrow {
+    animation-name: hide-arrow;
+    animation-duration: 2s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    
+}
+
+
 .fade-zoom-in{
     animation-name: fade-zoom-in;
     animation-duration: var(--duration);

@@ -2,28 +2,92 @@ class Slider {
 
     constructor (src, options = {}) {    
        
-        /* source */ 
-        this.quotes = document.querySelectorAll(src);
-
-        /* slide controllers */ 
-        this.leftArr = document.querySelector(".left");
-        this.rightArr = document.querySelector(".right");
+        /* 
+        * source 
+        */ 
+        this.quotesContainer = document.querySelector(src);
+        this.quotes = this.quotesContainer.querySelectorAll(".cite");      
         
-        /* default options */  
+        /* 
+        * slide controllers 
+        */ 
+        this.leftArr = this.quotesContainer.querySelector(".left");
+        this.rightArr = this.quotesContainer.querySelector(".right");
+        
+        /* 
+        * default options 
+        */  
+        this.controllers = options.controllers;
         this.slide = options.slide || 0;
         this.changeType = options.changeType || 'counter';
-        this.animation = options.animation || 'from-left'
-        this.duration = options.duration || 1
+        this.animation = options.animation || 'from-left';
+        this.duration = options.duration || 1;
         this.amt = options.amt || 'ease-in-out';
       }
+    
+    /* 
+    * Get the size of the longest quote
+    */ 
+    getElementHeight() {
+        
+        const heights = [];
 
+        for (let q of this.quotes)
+            heights.push(q.offsetHeight);
+        
+        const biggest = Math.max(...heights);
+        
+            return biggest + "px";
+    }
 
+    /* 
+    * Set container height to height of longest quote to prevent moving content
+    */ 
+    setElementHeight() {
+        
+        const height = this.getElementHeight();
+        
+        this.quotesContainer.style.setProperty("height", height);
+    }
+
+    /* 
+    * This function display controller arrows if this.controllers = true
+    * hide arrow if slide is first/last
+    */ 
+    setLimitController(slideNr) {
+
+        if (this.controllers) {
+
+            if (slideNr < this.quotes.length - 1) {
+                this.rightArr.classList.remove("hide-arrow");
+            } else {
+                this.rightArr.classList.add("hide-arrow");
+            }
+
+            if (slideNr > 0) {
+                this.leftArr.classList.remove("hide-arrow");
+            } else {
+                this.leftArr.classList.add("hide-arrow");
+            }
+
+        } else {
+            this.leftArr.style.setProperty("display", "none");
+            this.rightArr.style.setProperty("display", "none");
+        }
+            
+            
+
+    }
+
+    /* 
+    * Listen for event, change to next slide if current slide is not last
+    */ 
     setRightController() {
         this.rightArr.addEventListener("click", () => {
             
             if (this.slide < this.quotes.length - 1) {
                 this.slide++;
-                this.show(this.slide);
+                this.showSlide(this.slide);
                 this.setTimer();
             }
             
@@ -31,12 +95,15 @@ class Slider {
 
     }  
 
+    /* 
+    * Listen for event, change to previous slide if current slide is not first
+    */ 
     setLeftController() {
         this.leftArr.addEventListener("click", () => {
            
             if (this.slide > 0) {
                 this.slide--;
-                this.show(this.slide);
+                this.showSlide(this.slide);
                 this.setTimer();
             }
                    
@@ -44,27 +111,31 @@ class Slider {
         });
     }  
 
-    /* set slide timer */
+    /* 
+    * set slide timer 
+    */
     setTimer() {
         
         clearInterval(this.timer);
 
         this.timer = setInterval( () => {         
             this.setCounter();
-            this.show(this.slide);
+            this.showSlide(this.slide);
             
         }, `${this.duration}000`)
     }
     
     /* 
-    * 
+    * Choose random slide
+    * @param min
+    * @param max
     */
     setRandomSlide(min, max) {
         return Math.floor(Math.random() * (max-min+1) + min);
     }
 
     /* 
-    * 
+    *
     */
     setCounter() {
         if (this.slide === this.quotes.length - 1)
@@ -75,14 +146,16 @@ class Slider {
     }
 
     /* 
-    * show slide given in parameter
-    * @param nr
+    * show slide
+    * @param nr - slide nr
     */
-    show(nr) {
-            
-            for (let i = 0; i <= this.quotes.length - 1; i++) {
+    showSlide(slideNr) {
 
-                if (i === nr){
+            this.setLimitController(slideNr);
+            
+            for (let i = 0; i < this.quotes.length; i++) {
+
+                if (i === slideNr){
                     this.quotes[i].style.display = "inline-block";
                     this.quotes[i].style.setProperty("animation-duration", `${this.duration}s`);
                     this.quotes[i].style.setProperty("animation-timing-function", this.amt);
@@ -93,21 +166,38 @@ class Slider {
             }
               
     }
+
+
+
     /* 
     * initialize slideshow
     */
     init() {
+        
+        /* 
+        * set container height
+        */
+        this.setElementHeight();
+        
+        /* 
+        * init first slide 
+        */
+        this.showSlide(this.slide);
 
-        /* init first slide */
-        this.show(this.slide);
-
-        /* init timer */
+        /* 
+        * init timer 
+        */
         this.setTimer();
+        
+        /* 
+        * init slide controllers(arrows)
+        */
+        if (this.controllers) {
+            
+            this.setRightController();
+            this.setLeftController();
+        }
 
-        /* init slide controllers */
-        this.setRightController();
-        this.setLeftController();
-       
     }
        
 }

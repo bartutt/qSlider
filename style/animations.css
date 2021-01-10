@@ -1,4 +1,14 @@
 /* animations */ 
+@keyframes show-arrow {
+    0% {opacity: 0;} 
+    100% {opacity: 1; visibility: visible;}
+}
+
+@keyframes hide-arrow {
+    0% {opacity: 1;} 
+    100% {opacity: 0; visibility: hidden;}
+}
+
 @keyframes fade-zoom-in {
     0% {opacity: 0} 
     50% {opacity: 1; transform: scale(1.1,1.1);}
