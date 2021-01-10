@@ -17,7 +17,6 @@ class Slider {
         /* 
         * default options 
         */  
-        this.controllers = options.controllers;
         this.slide = options.slide || 0;
         this.changeType = options.changeType || 'counter';
         this.animation = options.animation || 'from-left';
@@ -56,7 +55,7 @@ class Slider {
     */ 
     setLimitController(slideNr) {
 
-        if (this.controllers) {
+        if (this.rightArr && this.leftArr) {
 
             if (slideNr < this.quotes.length - 1) {
                 this.rightArr.classList.remove("hide-arrow");
@@ -69,14 +68,7 @@ class Slider {
             } else {
                 this.leftArr.classList.add("hide-arrow");
             }
-
-        } else {
-            this.leftArr.style.setProperty("display", "none");
-            this.rightArr.style.setProperty("display", "none");
         }
-            
-            
-
     }
 
     /* 
@@ -89,10 +81,8 @@ class Slider {
                 this.slide++;
                 this.showSlide(this.slide);
                 this.setTimer();
-            }
-            
+            }           
         });
-
     }  
 
     /* 
@@ -105,9 +95,7 @@ class Slider {
                 this.slide--;
                 this.showSlide(this.slide);
                 this.setTimer();
-            }
-                   
-            
+            }           
         });
     }  
 
@@ -151,20 +139,19 @@ class Slider {
     */
     showSlide(slideNr) {
 
-            this.setLimitController(slideNr);
+        this.setLimitController(slideNr);
             
-            for (let i = 0; i < this.quotes.length; i++) {
+        for (let i = 0; i < this.quotes.length; i++) {
 
-                if (i === slideNr){
-                    this.quotes[i].style.display = "inline-block";
-                    this.quotes[i].style.setProperty("animation-duration", `${this.duration}s`);
-                    this.quotes[i].style.setProperty("animation-timing-function", this.amt);
-                    this.quotes[i].classList.add(this.animation);
-                } else {
-                    this.quotes[i].style.display = "none";
-                }               
-            }
-              
+            if (i === slideNr){
+                this.quotes[i].style.display = "inline-block";
+                this.quotes[i].style.setProperty("animation-duration", `${this.duration}s`);
+                this.quotes[i].style.setProperty("animation-timing-function", this.amt);
+                this.quotes[i].classList.add(this.animation);
+            } else {
+                this.quotes[i].style.display = "none";
+            }               
+        }          
     }
 
 
@@ -192,14 +179,12 @@ class Slider {
         /* 
         * init slide controllers(arrows)
         */
-        if (this.controllers) {
+        if (this.rightArr && this.leftArr) {
             
             this.setRightController();
             this.setLeftController();
         }
-
-    }
-       
+    }     
 }
 
 
