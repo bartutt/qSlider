@@ -15,8 +15,14 @@ class Slider {
         this.rightArr = this.quotesContainer.querySelector(".right");
         
         /* 
+        *  
+        */  
+        this.bullets = [];
+        
+        /* 
         * default options 
         */  
+        this.pagination = options.pagination;
         this.slide = options.slide || 0;
         this.changeType = options.changeType || 'counter';
         this.animation = options.animation || 'from-left';
@@ -24,6 +30,40 @@ class Slider {
         this.amt = options.amt || 'ease-in-out';
       }
     
+    /* 
+    * Create bullets under slider if it is specified in options 
+    */  
+    createPagination() {
+        
+        const bullets = document.createElement("ul");
+        bullets.classList.add("slider-pagination");
+
+        for (let i = 0; i <= this.quotes.length - 1 ; i++) {
+        
+            const li = document.createElement("li");
+            li.classList.add("slider-pagination-el");
+
+            const btn = document.createElement("button");
+            btn.classList.add("slider-pagination-button");
+            btn.type = "button";
+
+            btn.addEventListener("click", () => {
+                if (this.slide !== i) {
+                    this.slide = i;
+                    this.showSlide(i)
+
+                }});
+
+            li.appendChild(btn);
+
+            bullets.appendChild(li);
+            
+            this.bullets.push(li);
+        }
+
+        this.quotesContainer.appendChild(bullets);
+    }
+
     /* 
     * set new height when screen is resized
     */ 
@@ -37,14 +77,12 @@ class Slider {
         
             this.showSlide(this.slide);
         
-            this.setTimer();
-        
         })
-
     }
 
     /* 
     * Get the size of the longest quote
+    * @param input
     */ 
     getElementHeight(input) {
         
@@ -63,7 +101,8 @@ class Slider {
     }
 
     /* 
-    * Set container height to height of longest quote to prevent moving content
+    * Set container height to height of longest quote for prevent moving content
+    * @param height
     */ 
     setElementHeight(height) {
         
@@ -74,6 +113,7 @@ class Slider {
     /* 
     * This function display controller arrows if this.controllers = true
     * hide arrow if slide is first/last
+    * @param slideNr
     */ 
     setLimitController(slideNr) {
 
@@ -102,7 +142,6 @@ class Slider {
             if (this.slide < this.quotes.length - 1) {
                 this.slide++;
                 this.showSlide(this.slide);
-                this.setTimer();
             }           
         });
     }  
@@ -116,7 +155,6 @@ class Slider {
             if (this.slide > 0) {
                 this.slide--;
                 this.showSlide(this.slide);
-                this.setTimer();
             }           
         });
     }  
@@ -160,10 +198,23 @@ class Slider {
     * @param nr - slide nr
     */
     showSlide(slideNr) {
+        
+        this.setTimer();
 
         this.setLimitController(slideNr);
+        
 
-            
+        if (this.pagination) {
+            for (let i = 0; i < this.bullets.length; i++) {        
+                if (i === slideNr){
+                    this.bullets[i].classList.add("active-el");
+                } else {
+                    this.bullets[i].classList.remove("active-el");
+                }               
+            }   
+        }
+             
+        
         for (let i = 0; i < this.quotes.length; i++) {
             
             if (i === slideNr){
@@ -183,7 +234,20 @@ class Slider {
     * initialize slideshow
     */
     init() {
+
+        /* 
+        * init slide controllers(arrows)
+        */
+       if (this.rightArr && this.leftArr) {
+            
+            this.setRightController();
+            this.setLeftController();
         
+        }
+        
+        if (this.pagination)
+            this.createPagination();
+
         /* 
         * get container height
         */
@@ -198,21 +262,8 @@ class Slider {
         /* 
         * init first slide 
         */
-        this.showSlide(this.slide);
-
-        /* 
-        * init timer 
-        */
-        this.setTimer();
-        
-        /* 
-        * init slide controllers(arrows)
-        */
-        if (this.rightArr && this.leftArr) {
+        this.showSlide(this.slide); 
             
-            this.setRightController();
-            this.setLeftController();
-        }
     }     
 }
 
