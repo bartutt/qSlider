@@ -71,6 +71,8 @@ class Slider {
 
         window.addEventListener("resize", () => {
    
+            this.slide = 0;
+            
             const biggest = this.getElementHeight(this.quotes);
                          
             this.setElementHeight(biggest);
@@ -93,7 +95,6 @@ class Slider {
             heights.push(q.offsetHeight);
             q.style.setProperty("display", "none");     
         }
-            
         
         const biggest = Math.max(...heights);
         
