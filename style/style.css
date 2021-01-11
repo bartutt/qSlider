@@ -14,9 +14,10 @@ body{
     background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(163, 163, 163, 0.233) 100%);
 }
 
+
 q.dark{
     color:rgb(68, 68, 68);
-    font: italic 3rem quote,'Helvetica','Arial',sans-serif;
+    font: italic 1.5rem quote,'Helvetica','Arial',sans-serif;
 }
 
 q.dark::before{
@@ -24,7 +25,7 @@ q.dark::before{
 }
 
 p.ref{
-    font: 1rem ref,'Helvetica','Arial',sans-serif;
+    font: 0.6rem ref,'Helvetica','Arial',sans-serif;
 }
 
 p.ref::before{
@@ -37,3 +38,8 @@ p.ref::before{
     display: inline-block;
     bottom: 5px;
 }
+
+@media only screen and (min-width: 768px) {
+    q.dark{font-size:3rem}
+    p.ref{font-size: 1rem};
+  }

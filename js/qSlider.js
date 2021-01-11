@@ -24,17 +24,38 @@ class Slider {
         this.amt = options.amt || 'ease-in-out';
       }
     
+    /* 
+    * set new height when screen is resized
+    */ 
+    setResizedHeight() {
 
+        window.addEventListener("resize", () => {
+   
+            const biggest = this.getElementHeight(this.quotes);
+                         
+            this.setElementHeight(biggest);
+        
+            this.showSlide(this.slide);
+        
+            this.setTimer();
+        
+        })
+
+    }
 
     /* 
     * Get the size of the longest quote
     */ 
-    getElementHeight() {
+    getElementHeight(input) {
         
         const heights = [];
         
-        for (let q of this.quotes)
+        for (let q of input) {
+            q.style.setProperty("display", "block");
             heights.push(q.offsetHeight);
+            q.style.setProperty("display", "none");     
+        }
+            
         
         const biggest = Math.max(...heights);
         
@@ -166,14 +187,14 @@ class Slider {
         /* 
         * get container height
         */
-        const height = this.getElementHeight();
+        const height = this.getElementHeight(this.quotes);
         
         /* 
         * set container height
         */
         this.setElementHeight(height);
-
-
+        this.setResizedHeight();
+        
         /* 
         * init first slide 
         */
