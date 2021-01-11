@@ -11,6 +11,7 @@
     text-align: center;
     overflow: hidden;
     position: relative;
+    box-sizing: content-box; /* to get correct content height */ 
 }
 
 .arrow{
@@ -75,6 +76,7 @@
 
 .cite{
     display:block;  
+    box-sizing: content-box; /* to get correct content height */ 
 }
 
 /* animations classes */

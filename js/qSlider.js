@@ -24,13 +24,15 @@ class Slider {
         this.amt = options.amt || 'ease-in-out';
       }
     
+
+
     /* 
     * Get the size of the longest quote
     */ 
     getElementHeight() {
         
         const heights = [];
-
+        
         for (let q of this.quotes)
             heights.push(q.offsetHeight);
         
@@ -42,11 +44,10 @@ class Slider {
     /* 
     * Set container height to height of longest quote to prevent moving content
     */ 
-    setElementHeight() {
-        
-        const height = this.getElementHeight();
+    setElementHeight(height) {
         
         this.quotesContainer.style.setProperty("height", height);
+
     }
 
     /* 
@@ -140,9 +141,10 @@ class Slider {
     showSlide(slideNr) {
 
         this.setLimitController(slideNr);
+
             
         for (let i = 0; i < this.quotes.length; i++) {
-
+            
             if (i === slideNr){
                 this.quotes[i].style.display = "inline-block";
                 this.quotes[i].style.setProperty("animation-duration", `${this.duration}s`);
@@ -162,10 +164,16 @@ class Slider {
     init() {
         
         /* 
+        * get container height
+        */
+        const height = this.getElementHeight();
+        
+        /* 
         * set container height
         */
-        this.setElementHeight();
-        
+        this.setElementHeight(height);
+
+
         /* 
         * init first slide 
         */
