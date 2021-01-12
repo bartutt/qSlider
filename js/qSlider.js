@@ -68,18 +68,19 @@ class Slider {
     * set new height when screen is resized
     */ 
     setResizedHeight() {
-
-        window.addEventListener("resize", () => {
-   
-            this.slide = 0;
             
-            const biggest = this.getElementHeight(this.quotes);
-                         
-            this.setElementHeight(biggest);
-        
-            this.showSlide(this.slide);
-        
-        })
+            window.addEventListener("resize", () => {
+                if (window.pageYOffset == 0) {
+                
+                    this.slide = 0;
+                
+                    const biggest = this.getElementHeight(this.quotes);
+                             
+                    this.setElementHeight(biggest);
+            
+                    this.showSlide(this.slide);
+                }
+            })     
     }
 
     /* 
